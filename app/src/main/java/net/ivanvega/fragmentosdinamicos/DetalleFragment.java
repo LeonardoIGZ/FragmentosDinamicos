@@ -25,11 +25,9 @@ import java.io.IOException;
  * create an instance of this fragment.
  */
 public class DetalleFragment extends Fragment
-    implements MediaPlayer.OnPreparedListener,
+        implements MediaPlayer.OnPreparedListener,
         MediaController.MediaPlayerControl,
-        View.OnTouchListener
-
-{
+        View.OnTouchListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,25 +91,25 @@ public class DetalleFragment extends Fragment
                 layout.findViewById(R.id.spnGeneros);
 
         String[] generos
-                =  getResources().getStringArray(R.array.generos);
+                = getResources().getStringArray(R.array.generos);
 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter(getActivity(),
                         android.R.layout.simple_list_item_1,
                         android.R.id.text1, generos
-                        );
+                );
 
         spinner.setAdapter(adapter);
 
-          Bundle args = getArguments();
+        Bundle args = getArguments();
 
-          if(args != null){
-               int idLibro =
-                       args.getInt(DetalleFragment.ARG_INDEX_LIBRO);
-               setInfoLibro(idLibro,layout );
-          }else{
-              setInfoLibro(0, layout);
-          }
+        if (args != null) {
+            int idLibro =
+                    args.getInt(DetalleFragment.ARG_INDEX_LIBRO);
+            setInfoLibro(idLibro, layout);
+        } else {
+            setInfoLibro(0, layout);
+        }
 
 
         return layout;
@@ -128,7 +126,7 @@ public class DetalleFragment extends Fragment
         lblAutor.setText(libro.getAutor());
         imvPortada.setImageResource(libro.getRecursoImagen());
 
-        if( mediaPlayer== null){
+        if (mediaPlayer == null) {
             mediaPlayer = new MediaPlayer();
             mediaController = new MediaController(getActivity());
             mediaPlayer.setOnPreparedListener(this);
@@ -146,21 +144,20 @@ public class DetalleFragment extends Fragment
     }
 
 
-
     public void setInfoLibro(int pos) {
 
-        this.setInfoLibro(pos,getView()    );
+        this.setInfoLibro(pos, getView());
     }
 
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
-        mediaPlayer.start();
+
         mediaController.setMediaPlayer(this);
         mediaController.setAnchorView(
                 getView().findViewById(R.id.fragment_detalle_layout_root));
         mediaController.setEnabled(true);
         mediaController.show();
-
+        mediaPlayer.start();
 
     }
 
@@ -176,42 +173,42 @@ public class DetalleFragment extends Fragment
 
     @Override
     public int getDuration() {
-        return 0;
+        return mediaPlayer.getDuration();
     }
 
     @Override
     public int getCurrentPosition() {
-        return 0;
+        return mediaPlayer.getCurrentPosition();
     }
 
     @Override
     public void seekTo(int i) {
-
+        mediaPlayer.seekTo(i);
     }
 
     @Override
     public boolean isPlaying() {
-        return false;
+        return mediaPlayer.isPlaying();
     }
 
     @Override
     public int getBufferPercentage() {
-        return 0;
+        return mediaPlayer.getCurrentPosition() / mediaPlayer.getDuration() * 100;
     }
 
     @Override
     public boolean canPause() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean canSeekBackward() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean canSeekForward() {
-        return false;
+        return true;
     }
 
     @Override
@@ -223,5 +220,12 @@ public class DetalleFragment extends Fragment
     public boolean onTouch(View view, MotionEvent motionEvent) {
         mediaController.show();
         return false;
+    }
+
+    @Override
+    public void onStop(){
+        mediaPlayer.stop();
+        mediaPlayer.release();
+        super.onStop();
     }
 }

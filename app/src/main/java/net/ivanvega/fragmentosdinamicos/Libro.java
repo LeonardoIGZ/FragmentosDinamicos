@@ -7,15 +7,15 @@ public class Libro {
     static Vector<Libro> libros = new Vector<Libro>();
     static{
         final String SERVIDOR =
-                "http://www.dcomg.upv.es/~jtomas/android/audiolibros/";
+                "https://www.audiomol.com/media/dinamico/libros/demos/";
 
-        libros.add(new Libro("Kappa", "Akutagawa", R.drawable.kappa, SERVIDOR + "kappa.mp3", Libro.G_S_XIX, false, false));
-        libros.add(new Libro("Avecilla", "Alas Clarín, Leopoldo", R.drawable.avecilla, SERVIDOR + "avecilla.mp3", Libro.G_S_XIX, true, false));
-        libros.add(new Libro("Divina Comedia", "Dante", R.drawable.divina_comedia, SERVIDOR + "divina_comedia.mp3", Libro.G_EPICO, true, false));
-        libros.add(new Libro("Viejo Pancho, El", "Alonso y Trelles, José", R.drawable.viejo_pancho, SERVIDOR + "viejo_pancho.mp3", Libro.G_S_XIX, true, true));
-        libros.add(new Libro("Canción de Rolando", "Anónimo", R.drawable.cancion_rolando, SERVIDOR + "cancion_rolando.mp3", Libro.G_EPICO, false, true));
-        libros.add(new Libro("Matrimonio de sabuesos", "Agata Christie", R.drawable.matrim_sabuesos, SERVIDOR + "matrim_sabuesos.mp3", Libro.G_SUSPENSE, false, true));
-        libros.add(new Libro("La iliada", "Homero", R.drawable.la_iliada, SERVIDOR + "la_iliada.mp3", Libro.G_EPICO, true, false));
+        libros.add(new Libro("Kappa", "Akutagawa", R.drawable.kappa, SERVIDOR + "Trailer%20Ben-hur.mp3", Libro.G_S_XIX, false, false));
+        libros.add(new Libro("Avecilla", "Alas Clarín, Leopoldo", R.drawable.avecilla, SERVIDOR + "Sample_Asi_hablo_Zaratustra_Gl6Fq40.mp3", Libro.G_S_XIX, true, false));
+        libros.add(new Libro("Divina Comedia", "Dante", R.drawable.divina_comedia, SERVIDOR + "La_Divina_Comedia_bONemUk.mp3", Libro.G_EPICO, true, false));
+        libros.add(new Libro("Viejo Pancho, El", "Alonso y Trelles, José", R.drawable.viejo_pancho, SERVIDOR + "los_viejos_amigos.mp3", Libro.G_S_XIX, true, true));
+        libros.add(new Libro("Canción de Rolando", "Anónimo", R.drawable.cancion_rolando, SERVIDOR + "el_arte_de_la_guerra.mp3", Libro.G_EPICO, false, true));
+        libros.add(new Libro("Matrimonio de sabuesos", "Agata Christie", R.drawable.matrim_sabuesos, SERVIDOR + "La_Narrativa_de_Arthur_Gordon_Pym_Sample.mp3", Libro.G_SUSPENSE, false, true));
+        libros.add(new Libro("La iliada", "Homero", R.drawable.la_iliada, SERVIDOR + "El_Criador_de_Gorilas_Sample.mp3", Libro.G_EPICO, true, false));
     }
 
     public String getTitulo() {
