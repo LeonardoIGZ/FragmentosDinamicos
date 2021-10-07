@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,19 +35,55 @@ public class MainActivity extends AppCompatActivity {
                             SelectorFragment.class, null).commit();
         }
         //Barra de acciones
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         //Boton flotante
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                  //      .setAction("Action", null).show();
+                //      .setAction("Action", null).show();
                 irUltimoVisitado();
             }
         });
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.addTab(tabLayout.newTab().setText("Todos"));
+        tabLayout.addTab(tabLayout.newTab().setText("Nuevos"));
+        tabLayout.addTab(tabLayout.newTab().setText("Leidos"));
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+/*
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0: //Todos
+                        adaptador.setNovedad(false);
+                        adaptador.setLeido(false);
+                        break;
+                    case 1: //Nuevos
+                        adaptador.setNovedad(true);
+                        adaptador.setLeido(false);
+                        break;
+                    case 2: //Leidos
+                        adaptador.setNovedad(false);
+                        adaptador.setLeido(true);
+                        break;
+                }
+                adaptador.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+
+        });
+*/
     }
 
     @Override
@@ -116,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
-    SharedPreferences pref = getSharedPreferences(
-            "com.example.audiolibros_internal", MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences(
+                "com.example.audiolibros_internal", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("ultimo", pos);
         editor.commit();
