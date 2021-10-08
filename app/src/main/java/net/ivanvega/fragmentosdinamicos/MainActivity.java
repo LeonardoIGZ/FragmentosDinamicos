@@ -17,6 +17,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
+    private AdaptadorLibrosFiltro adaptador;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Nuevos"));
         tabLayout.addTab(tabLayout.newTab().setText("Leidos"));
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-/*
+        //adaptador =((Aplicacion) getApplicationContext()).getAdaptador();
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-*/
+        adaptador =((Aplicacion) getApplicationContext()).getAdaptador();
     }
 
     @Override

@@ -18,8 +18,7 @@ import java.util.Vector;
 public class MiAdaptadorPersonalizado
         extends RecyclerView.Adapter<MiAdaptadorPersonalizado.ViewHolder> {
 
-
-    private final Vector<Libro> libros;
+    protected Vector<Libro> libros;
     private final Context contexto;
     private View.OnClickListener onClickLister;
     private View.OnLongClickListener onLongClickItemListener;
@@ -28,14 +27,14 @@ public class MiAdaptadorPersonalizado
         this.onLongClickItemListener = onLongClickItemListener;
     }
 
-    public  MiAdaptadorPersonalizado(Context ctx,
-                                     Vector<Libro> libros){
+    public MiAdaptadorPersonalizado(Context ctx,
+                                    Vector<Libro> libros) {
         this.libros = libros;
         this.contexto = ctx;
 
     }
 
-    public void setOnClickLister(View.OnClickListener onClickLister){
+    public void setOnClickLister(View.OnClickListener onClickLister) {
         this.onClickLister = onClickLister;
     }
 
@@ -69,7 +68,7 @@ public class MiAdaptadorPersonalizado
         Libro libro = libros.elementAt(position);
 
         holder.getTitulo().setText(
-                libro.getTitulo()     );
+                libro.getTitulo());
         holder.getPortada().setImageResource(
                 libro.getRecursoImagen()
         );

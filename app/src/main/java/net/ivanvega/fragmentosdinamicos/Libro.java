@@ -90,23 +90,19 @@ public class Libro {
         this.leido = leido;
     }
 
-    private Boolean novedad; // Es una novedad
-    private Boolean leido;
+    public String titulo;
+    public String autor;
+    public int recursoImagen;
+    public String url;
+    public String genero;
+    public Boolean novedad; // Es una novedad
+    public Boolean leido;
 
     // Leído por el usuario
     public final static String G_TODOS = "Todos los géneros";
     public final static String G_EPICO = "Poema épico";
     public final static String G_S_XIX = "Literatura siglo XIX";
     public final static String G_SUSPENSE = "Suspense";
-
-    private String titulo;
-    private String autor;
-    private int recursoImagen;
-    private String url;
-    private String genero;
-
-
-
 
 
 }

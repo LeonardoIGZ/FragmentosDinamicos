@@ -1,5 +1,6 @@
 package net.ivanvega.fragmentosdinamicos;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Vector;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SelectorFragment#newInstance} factory method to
@@ -39,8 +42,11 @@ public class SelectorFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    String[] menuContextItem;
+    private Activity actividad;
+    private AdaptadorLibrosFiltro adaptador;
+    private Vector<Libro> vectorLibros;
 
+    String[] menuContextItem;
     RecyclerView recyclerViewLibros;
     private Context contexto;
 
@@ -102,8 +108,8 @@ public class SelectorFragment extends Fragment {
         recyclerViewLibros =
                 layout.findViewById(R.id.recyclerViewLibros);
 
-        MiAdaptadorPersonalizado miAdaptadorPersonalizado =
-                new MiAdaptadorPersonalizado(getActivity(),
+        AdaptadorLibrosFiltro miAdaptadorPersonalizado =
+                new AdaptadorLibrosFiltro(getActivity(),
                         Libro.ejemplosLibros()
                 );
 
@@ -112,11 +118,12 @@ public class SelectorFragment extends Fragment {
                     int pos =
                             recyclerViewLibros.
                                     getChildAdapterPosition(view);
+
                     Toast.makeText(getActivity(),
-                            "ELement at selected" + pos,
+                            "Usted a seleccionado el libro:  " + (pos+1),
                             Toast.LENGTH_LONG).show();
 
-                    ((MainActivity) this.contexto).mostrarDetalle(pos);
+                    ((MainActivity) this.contexto).mostrarDetalle((int) miAdaptadorPersonalizado.getItemId(pos));
                 }
         );
 
@@ -150,41 +157,33 @@ public class SelectorFragment extends Fragment {
                                                             intent.putExtra(Intent.EXTRA_TEXT,
                                                                     Libro.ejemplosLibros()
                                                                             .elementAt(posLibro).getUrl());
-
                                                             startActivity(intent);
 
                                                             break;
                                                         case 1: //Insertar
-                                                            Snackbar.make(view, "Libro insertado", Snackbar.LENGTH_INDEFINITE)
-                                                                    .setAction("OK", new View.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(View view) {
-
-                                                                        }
-                                                                    })
-                                                                    .show();
-                                                            break;
-                                                        /*case 1:
-                                                            Libro.ejemplosLibros().add(
-                                                                    Libro.ejemplosLibros().get(posLibro)
-                                                            );
+                                                            //Libro.ejemplosLibros().add(Libro.ejemplosLibros().get(posLibro));
+                                                            miAdaptadorPersonalizado.insertar(Libro.ejemplosLibros().get(posLibro));
                                                             miAdaptadorPersonalizado
                                                                     .notifyItemInserted(
                                                                             Libro.ejemplosLibros().size() - 1);
-                                                            break;*/
 
-                                                        /*case 2:
-                                                            Libro.ejemplosLibros().remove(posLibro);
-                                                            miAdaptadorPersonalizado.notifyItemRemoved(posLibro);
-                                                            break;*/
+                                                            Snackbar.make(view, "Libro insertado", Snackbar.LENGTH_INDEFINITE)
+                                                                    .setAction("OK", new View.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(View view) { }
+                                                                    })
+                                                                    .show();
+                                                            break;
                                                         case 2: ///Borrar
                                                             Snackbar.make(view, "Estas seguro", Snackbar.LENGTH_LONG)
                                                                     .setAction("SI", new View.OnClickListener() {
                                                                         @Override
                                                                         public void onClick(View view) {
-                                                                            Libro.ejemplosLibros().remove(posLibro);
+                                                                            //Libro.ejemplosLibros().remove(posLibro);
+                                                                            miAdaptadorPersonalizado.borrar(posLibro);
+                                                                            miAdaptadorPersonalizado.notifyItemRemoved(posLibro);
                                                                             //vectorLibros.remove();
-                                                                            miAdaptadorPersonalizado.notifyDataSetChanged();
+                                                                            //miAdaptadorPersonalizado.notifyDataSetChanged();
                                                                         }
                                                                     })
                                                                     .show();
@@ -219,7 +218,7 @@ public class SelectorFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_ultimo) {
-            ((MainActivity) getActivity()).irUltimoVisitado();
+            ((MainActivity) this.contexto).irUltimoVisitado();
             return true;
         } else if (id == R.id.menu_buscar) {
             return true;
